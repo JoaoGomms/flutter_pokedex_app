@@ -1,17 +1,10 @@
-class PokemonStats {
-  final int hp;
-  final int atk;
-  final int def;
-  final int satk;
-  final int sdef;
-  final int spd;
+class PokemonStat {
+  final String name;
+  final int value;
 
-  PokemonStats(
-    this.hp,
-    this.atk,
-    this.def,
-    this.satk,
-    this.sdef,
-    this.spd,
-  );
+  PokemonStat(this.name, this.value);
+
+  factory PokemonStat.fromJson(Map<String, dynamic> json) {
+    return PokemonStat(json['stat']['name'], json['base_stat']);
+  }
 }
