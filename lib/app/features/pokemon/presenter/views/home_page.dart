@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_app/app/features/pokemon/presenter/controllers/home_controller.dart';
+import 'package:pokedex_app/app/theme/icons/pokemon_app_icons.dart';
+import 'package:pokedex_app/app/theme/palette.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,12 +38,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       appBar: AppBar(
-        backgroundColor: Colors.red,
-        elevation: 0,
-        leading: const Icon(Icons.abc),
-        title: const Text('Pokedex'),
+        backgroundColor: Palette.primary,
+        leading: const Icon(
+          PokemonAppIcons.pokeball,
+          color: Palette.white,
+        ),
+        title: Text(
+          'Pokédex',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
@@ -61,26 +67,27 @@ class _HomePageState extends State<HomePage> {
                       BoxShadow(
                         offset: Offset(0, 0),
                         blurRadius: 5.0,
-                        blurStyle: BlurStyle.inner,
+                        spreadRadius: -12,
                         color: Colors.black,
                       ),
                     ],
                   ),
                   child: TextField(
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
-                      color: Colors.blueAccent,
                     ),
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      prefixIcon: const Icon(Icons.search),
-                      hintText: "Search",
+                      contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Palette.primary,
+                      ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 32.0),
+                        borderSide: const BorderSide(color: Colors.white, width: 32.0),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 32.0),
+                        borderSide: const BorderSide(color: Colors.white, width: 32.0),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),
@@ -89,15 +96,22 @@ class _HomePageState extends State<HomePage> {
               ),
               Observer(builder: (_) {
                 return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 4),
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), color: Colors.white),
+                  decoration: const BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      blurRadius: 10.0,
+                      spreadRadius: -12,
+                      color: Colors.black,
+                    ),
+                  ], shape: BoxShape.circle, color: Colors.white),
                   child: DropdownButton<String>(
                     value: controller.dropdownValue,
                     icon: Container(),
                     elevation: 16,
                     underline: Container(),
-                    style: const TextStyle(color: Colors.deepPurple),
+                    style: const TextStyle(color: Palette.primary),
                     onChanged: (String? value) {
                       controller.dropdownValue = value ?? 'A';
                       controller.sortPokemons(value == '#' ? 0 : 1);
@@ -120,7 +134,9 @@ class _HomePageState extends State<HomePage> {
             child: Observer(builder: (_) {
               return controller.pokemons.isEmpty && controller.isLoadingPokemons
                   ? const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: Palette.primary,
+                      ),
                     )
                   : Column(
                       children: [
@@ -134,39 +150,46 @@ class _HomePageState extends State<HomePage> {
                             ),
                             itemBuilder: (context, index) {
                               var pokemon = controller.pokemons[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 1.0,
-                                      spreadRadius: 1.0,
-                                      offset: Offset(0.0, 1.0), // shadow direction: bottom right
-                                    )
-                                  ],
-                                ),
-                                margin: const EdgeInsets.all(4),
-                                child: Stack(alignment: Alignment.bottomCenter, children: [
-                                  Container(
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[100], borderRadius: BorderRadius.circular(8))),
-                                  Positioned(top: 4, right: 4, child: Text('#${pokemon.id}')),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Image.network(pokemon.imgUrl, fit: BoxFit.fill),
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/details', arguments: pokemon);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 1.0,
+                                        spreadRadius: 1.0,
+                                        offset: Offset(0.0, 1.0), // shadow direction: bottom right
+                                      )
+                                    ],
                                   ),
-                                  Positioned(bottom: 4, child: Text(pokemon.name)),
-                                ]),
+                                  margin: const EdgeInsets.all(8),
+                                  child: Stack(alignment: Alignment.bottomCenter, children: [
+                                    Container(
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[100], borderRadius: BorderRadius.circular(8))),
+                                    Positioned(top: 4, right: 4, child: Text('#${pokemon.id}')),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8.0),
+                                      child: Image.network(pokemon.imgUrl, fit: BoxFit.fill),
+                                    ),
+                                    Positioned(bottom: 4, child: Text(pokemon.name)),
+                                  ]),
+                                ),
                               );
                             }),
                         if (controller.isLoadingPokemons)
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 24.0),
                             child: Center(
-                              child: CircularProgressIndicator(),
+                              child: CircularProgressIndicator(
+                                color: Palette.primary,
+                              ),
                             ),
                           )
                       ],

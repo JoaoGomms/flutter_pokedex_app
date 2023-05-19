@@ -17,7 +17,7 @@ abstract class _HomeControllerBase with Store {
   bool isLoadingPokemons = false;
 
   @observable
-  String dropdownValue = 'A';
+  String dropdownValue = '#';
 
   @action
   void sortPokemons(int sortType) {
