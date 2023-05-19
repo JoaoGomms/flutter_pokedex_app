@@ -25,6 +25,38 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  late final _$isLoadingPokemonsAtom =
+      Atom(name: '_HomeControllerBase.isLoadingPokemons', context: context);
+
+  @override
+  bool get isLoadingPokemons {
+    _$isLoadingPokemonsAtom.reportRead();
+    return super.isLoadingPokemons;
+  }
+
+  @override
+  set isLoadingPokemons(bool value) {
+    _$isLoadingPokemonsAtom.reportWrite(value, super.isLoadingPokemons, () {
+      super.isLoadingPokemons = value;
+    });
+  }
+
+  late final _$dropdownValueAtom =
+      Atom(name: '_HomeControllerBase.dropdownValue', context: context);
+
+  @override
+  String get dropdownValue {
+    _$dropdownValueAtom.reportRead();
+    return super.dropdownValue;
+  }
+
+  @override
+  set dropdownValue(String value) {
+    _$dropdownValueAtom.reportWrite(value, super.dropdownValue, () {
+      super.dropdownValue = value;
+    });
+  }
+
   late final _$fetchPokemonsAsyncAction =
       AsyncAction('_HomeControllerBase.fetchPokemons', context: context);
 
@@ -33,10 +65,26 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$fetchPokemonsAsyncAction.run(() => super.fetchPokemons());
   }
 
+  late final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase', context: context);
+
+  @override
+  void sortPokemons(int sortType) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.sortPokemons');
+    try {
+      return super.sortPokemons(sortType);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-pokemons: ${pokemons}
+pokemons: ${pokemons},
+isLoadingPokemons: ${isLoadingPokemons},
+dropdownValue: ${dropdownValue}
     ''';
   }
 }
