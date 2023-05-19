@@ -7,5 +7,5 @@ init() {
   registerPokemonClient();
 
   GetIt.I.registerFactory<PokemonService>(() => PokemonService(GetIt.I.get()));
-  GetIt.I.registerFactory<HomeController>(() => HomeController(GetIt.I.get()));
+  GetIt.I.registerSingleton<HomeController>(HomeController(GetIt.I.get()));
 }
