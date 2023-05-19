@@ -26,7 +26,7 @@ class PokemonModel {
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(
         json['id'],
-        json['name'],
+        json['name'].replaceFirst(json['name'][0], json['name'][0].toUpperCase()),
         json['sprites']['front_default'],
         json['weight'],
         json['height'],
@@ -34,4 +34,6 @@ class PokemonModel {
         (json['stats'] as List).map((e) => PokemonStat.fromJson(e)).toList(),
         (json['types'] as List).map((e) => PokemonType.fromJson(e['type'])).toList());
   }
+
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 }
