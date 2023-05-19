@@ -6,7 +6,7 @@ import 'package:pokedex_app/app/theme/palette.dart';
 import '../controllers/home_controller.dart';
 
 class SplashPage extends StatefulWidget {
-  SplashPage({super.key});
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
