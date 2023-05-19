@@ -5,27 +5,17 @@ class PokemonService {
   final Dio dio;
 
   PokemonService(this.dio);
-
-  Future<List> getPokemonIdentificator() async {
-    Response response = await dio.get('pokemon?limit=20&offset=0');
-
-    if (response.statusCode == 200) {
-      var pokemonData = (response.data['results'] as List).map((e) => e['url']).toList();
-      return pokemonData;
-    }
-
-    throw Exception('API ERROR');
-  }
+  var limit = 1;
 
   Future<List<PokemonModel>> fetchAllPokemons() async {
-    var pokemonIdentificators = await getPokemonIdentificator();
     List<PokemonModel> pokemons = [];
 
-    for (var id in pokemonIdentificators) {
-      var response = await dio.get(id);
+    for (var id = limit; id < limit + 20; id++) {
+      var response = await dio.get('pokemon/$id');
 
       pokemons.add(PokemonModel.fromJson(response.data));
     }
+    limit += 20;
 
     return pokemons;
   }
