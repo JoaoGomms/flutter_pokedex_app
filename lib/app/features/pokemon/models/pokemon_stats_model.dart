@@ -8,7 +8,7 @@ class PokemonStat {
     return PokemonStat(json['stat']['name'], json['base_stat']);
   }
 
-  static String statShortName(String name) {
+  String statShortName() {
     return {
           'attack': 'atk',
           'defense': 'def',

@@ -11,9 +11,10 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: appTheme,
       routes: {
-        '/': (context) => SplashPage(),
+        '/': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
         '/details': (context) => const PokemonDetailPage(),
       },
