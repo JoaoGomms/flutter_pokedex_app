@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/app/features/pokemon/models/pokemon_stats_model.dart';
+import 'package:pokedex_app/app/theme/palette.dart';
 
 class PokemonStatsComponent extends StatelessWidget {
   final List<PokemonStat> stats;
@@ -18,59 +19,65 @@ class PokemonStatsComponent extends StatelessWidget {
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ...stats
-                      .map((stat) => Text(
-                            PokemonStat.statShortName(stat.name).toUpperCase(),
-                            style: const TextStyle(fontSize: 16),
-                          ))
-                      .toList(),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Container(
-                  height: 100,
-                  width: 1,
-                  color: Colors.grey,
-                ),
-              ),
-              Column(
-                children: stats
-                    .map((stat) => Text(stat.value.toString().padLeft(3, '0'), style: const TextStyle(fontSize: 16)))
-                    .toList(),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ...stats
-                      .map((stat) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.63,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: LinearProgressIndicator(
-                                  minHeight: 5,
-                                  value: stat.value.toDouble() / 100,
-                                  backgroundColor: color.withOpacity(0.4),
-                                  valueColor: AlwaysStoppedAnimation<Color>(color),
-                                ),
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                ],
-              ),
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: stats.map((stat) => CustomRow(stat: stat, color: color)).toList()),
             ],
           )
         ],
       ),
+    );
+  }
+}
+
+class CustomRow extends StatelessWidget {
+  final PokemonStat stat;
+  final Color color;
+
+  const CustomRow({
+    Key? key,
+    required this.stat,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text(
+          stat.statShortName().toUpperCase(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Container(
+            alignment: Alignment.center,
+            width: 1,
+            height: 20,
+            color: Palette.light,
+          ),
+        ),
+        Text(stat.value.toString().padLeft(3, '0')),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                minHeight: 5,
+                value: stat.value.toDouble() / 100,
+                backgroundColor: color.withOpacity(0.4),
+                valueColor: AlwaysStoppedAnimation<Color>(color),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
