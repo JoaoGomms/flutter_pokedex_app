@@ -13,7 +13,10 @@ class PokemonStatsComponent extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.9,
       child: Column(
         children: [
-          const Text('Base Stats'),
+          Text(
+            'Base Stats',
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: color),
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -51,9 +54,10 @@ class CustomRow extends StatelessWidget {
       children: [
         Text(
           stat.statShortName().toUpperCase(),
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: color),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Container(
             alignment: Alignment.center,
             width: 1,

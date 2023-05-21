@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Palette.white,
                     borderRadius: BorderRadius.circular(24.0),
                     boxShadow: const [
                       BoxShadow(
@@ -83,11 +83,11 @@ class _HomePageState extends State<HomePage> {
                         color: Palette.primary,
                       ),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 32.0),
+                        borderSide: const BorderSide(color: Palette.white, width: 32.0),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 32.0),
+                        borderSide: const BorderSide(color: Palette.white, width: 32.0),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       spreadRadius: -12,
                       color: Colors.black,
                     ),
-                  ], shape: BoxShape.circle, color: Colors.white),
+                  ], shape: BoxShape.circle, color: Palette.white),
                   child: DropdownButton<String>(
                     value: controller.dropdownValue,
                     icon: Container(),
@@ -129,8 +129,8 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 2),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+            margin: const EdgeInsets.only(top: 24, left: 6, right: 6, bottom: 2),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Palette.white),
             child: Observer(builder: (_) {
               return controller.pokemons.isEmpty && controller.isLoadingPokemons
                   ? const Center(
@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(8),
                                     boxShadow: const [
                                       BoxShadow(
-                                        color: Colors.black26,
+                                        color: Palette.light,
                                         blurRadius: 1.0,
                                         spreadRadius: 1.0,
                                         offset: Offset(0.0, 1.0), // shadow direction: bottom right
@@ -172,13 +172,24 @@ class _HomePageState extends State<HomePage> {
                                     Container(
                                         height: 45,
                                         decoration: BoxDecoration(
-                                            color: Colors.grey[100], borderRadius: BorderRadius.circular(8))),
-                                    Positioned(top: 4, right: 4, child: Text('#${pokemon.id}')),
+                                            color: Palette.light100, borderRadius: BorderRadius.circular(8))),
+                                    Positioned(
+                                        top: 4,
+                                        right: 4,
+                                        child: Text(
+                                          '#${pokemon.id.toString().padLeft(3, '0')}',
+                                          style: Theme.of(context).textTheme.displaySmall,
+                                        )),
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 8.0),
                                       child: Image.network(pokemon.imgUrl, fit: BoxFit.fill),
                                     ),
-                                    Positioned(bottom: 4, child: Text(pokemon.name)),
+                                    Positioned(
+                                        bottom: 4,
+                                        child: Text(
+                                          pokemon.name,
+                                          style: Theme.of(context).textTheme.displayLarge,
+                                        )),
                                   ]),
                                 ),
                               );
