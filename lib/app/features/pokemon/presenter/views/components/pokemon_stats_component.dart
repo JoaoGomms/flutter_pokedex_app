@@ -12,6 +12,7 @@ class PokemonStatsComponent extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Text(
             'Base Stats',

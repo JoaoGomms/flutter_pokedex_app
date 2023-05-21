@@ -39,10 +39,12 @@ class PokemonDetailPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 1.05,
+              height: MediaQuery.of(context).size.height < 700
+                  ? MediaQuery.of(context).size.height * 1.05
+                  : MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Stack(
                 alignment: Alignment.center,
