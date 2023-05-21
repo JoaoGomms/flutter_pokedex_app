@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pokedex_app/app/features/pokemon/models/pokemon_type.dart';
 import 'package:pokedex_app/app/theme/palette.dart';
+import 'package:pokedex_app/app/util/extensions.dart';
 
 import '../../models/pokemon_model.dart';
 import 'components/pokemon_info_component.dart';
@@ -19,18 +21,24 @@ class PokemonDetailPage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: Colors.transparent,
         title: Text(
-          pokemon.name,
-          style: const TextStyle(fontSize: 24),
+          pokemon.name.capitalize(),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 24.0),
-            child: Center(child: Text('#${pokemon.id}')),
-          )
+              padding: const EdgeInsets.only(right: 24.0),
+              child: Center(
+                child: Text(
+                  '#${pokemon.id.toString().padLeft(3, '0')}',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Palette.white),
+                ),
+              ))
         ],
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height,
@@ -44,7 +52,7 @@ class PokemonDetailPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 4.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Palette.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       height: MediaQuery.of(context).size.height * 0.7,
@@ -53,36 +61,49 @@ class PokemonDetailPage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Container(
-                      height: 180,
-                      width: 180,
-                      color: Palette.primary,
-                    ),
+                  right: 12,
+                  top: 12,
+                  child: Image.asset(
+                    'assets/Pokeball.png',
+                    color: Palette.white.withOpacity(0.1),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.1,
+                  top: MediaQuery.of(context).size.height * 0.2,
                   child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.network(
-                        pokemon.imgUrl,
-                        fit: BoxFit.fill,
-                        scale: 0.4,
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200, minHeight: 200, minWidth: 200),
+                        child: SvgPicture.network(
+                          placeholderBuilder: (context) => Image.network(
+                            pokemon.imgUrl,
+                          ),
+                          alignment: Alignment.center,
+                          'https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon.id}.svg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: pokemon.types
                             .map((e) => Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Chip(backgroundColor: pokemonColor, label: Text(e.name)),
+                                  child: Chip(
+                                    labelPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                                    backgroundColor: PokemonType.getTypeColor(e),
+                                    label: Text(
+                                      e.name.capitalize(),
+                                      style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Palette.white),
+                                    ),
+                                  ),
                                 ))
                             .toList(),
                       ),
-                      PokemonInfoComponent(height: pokemon.height, weight: pokemon.weight, moves: pokemon.moves),
+                      PokemonInfoComponent(
+                          height: pokemon.height, weight: pokemon.weight, moves: pokemon.moves, color: pokemonColor),
                       const SizedBox(
                         height: 24,
                       ),
