@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/app/theme/palette.dart';
+import 'package:pokedex_app/app/theme/main.dart';
 
 class PokemonType {
   final String name;

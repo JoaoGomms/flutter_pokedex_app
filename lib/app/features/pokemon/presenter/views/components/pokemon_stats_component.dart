@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/app/features/pokemon/models/pokemon_stats_model.dart';
-import 'package:pokedex_app/app/theme/palette.dart';
+import 'package:pokedex_app/app/theme/main.dart';
 
 class PokemonStatsComponent extends StatelessWidget {
   final List<PokemonStat> stats;

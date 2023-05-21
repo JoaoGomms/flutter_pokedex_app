@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/app/features/pokemon/models/pokemon_move_model.dart';
-import 'package:pokedex_app/app/theme/icons/pokemon_app_icons.dart';
-import 'package:pokedex_app/app/theme/palette.dart';
+
+import 'package:pokedex_app/app/theme/main.dart';
 import 'package:pokedex_app/app/util/extensions.dart';
 
 class PokemonInfoComponent extends StatelessWidget {

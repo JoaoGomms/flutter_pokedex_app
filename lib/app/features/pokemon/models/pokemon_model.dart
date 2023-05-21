@@ -1,3 +1,5 @@
+import 'package:pokedex_app/app/util/extensions.dart';
+
 import 'pokemon_move_model.dart';
 import 'pokemon_stats_model.dart';
 import 'pokemon_type.dart';
@@ -26,7 +28,7 @@ class PokemonModel {
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(
         json['id'],
-        json['name'].replaceFirst(json['name'][0], json['name'][0].toUpperCase()),
+        (json['name'] as String).capitalize(),
         json['sprites']['front_default'],
         (json['weight'] as num) / 10,
         (json['height'] as num) / 10,
