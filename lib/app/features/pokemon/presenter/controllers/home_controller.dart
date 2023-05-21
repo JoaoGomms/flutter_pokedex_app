@@ -20,14 +20,14 @@ abstract class _HomeControllerBase with Store {
   String dropdownValue = '#';
 
   @action
-  void sortPokemons(int sortType) {
-    if (sortType == 0) {
+  void sortPokemons(String sortType) {
+    if (sortType == '#') {
       pokemons.sort(
         (a, b) => a.id.compareTo(b.id),
       );
     }
 
-    if (sortType == 1) {
+    if (sortType == 'A') {
       pokemons.sort(
         (a, b) => a.name.compareTo(b.name),
       );
@@ -40,6 +40,8 @@ abstract class _HomeControllerBase with Store {
     var response = await service.fetchAllPokemons();
 
     pokemons.addAll(response);
+    sortPokemons(dropdownValue);
+
     isLoadingPokemons = false;
   }
 }

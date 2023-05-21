@@ -69,7 +69,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase', context: context);
 
   @override
-  void sortPokemons(int sortType) {
+  void sortPokemons(String sortType) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.sortPokemons');
     try {
