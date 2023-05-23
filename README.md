@@ -1,16 +1,22 @@
 # pokedex_app
 
-A new Flutter project.
+# 📁 Acesso ao projeto
 
-## Getting Started
+Você pode baixar o arquivo zip ou utilizar o comando git clone para baixar o repositório.
 
-This project is a starting point for a Flutter application.
+# 🛠️ Abrir e rodar o projeto
 
-A few resources to get you started if this is your first Flutter project:
+Ao abrir o projeto na IDE é necessário rodar os comandos:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- <code>flutter pub get</code>
+- <code>flutter run</code>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Telas
+
+| ![Splash Screen](.github/assets/splash.png) | ![Home Page Sorted By Name](.github/assets/home_page/sort_by_name.png) | ![Home Page Sorted By Number](.github/assets/home_page/sort_by_number.png) | ![Home Page Infinite Scroll](.github/assets/home_page/infinite_scroll.png) |
+| ----------- | ----------- | ----------- | ----------- |
+| Splash | Ordenação por nome | Ordenação por número | Scroll Infinito |
+
+| ![Vulpix Img](.github/assets/detail_page/detail_1.png) | ![Vulpix Placeholder](.github/assets/detail_page/detail_placeholder1.png) | ![Bulbasaur Img](.github/assets/detail_page/detail_2.png) | ![Bulbasaur Placeholder](.github/assets/detail_page/detail_placeholder2.png) |
+| ----------- | ----------- | ----------- | ----------- |
+| Detalhes do Pokemon | Placeholder para imagem que não carregou ainda | Detalhes do Pokemon (Cor Diferente a depender do tipo do pokemon) | Placeholder para imagem que não carregou ainda |
